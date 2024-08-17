@@ -33,20 +33,11 @@ class _LoginPageSatte extends State<Login> {
   bool isExibirEmail = false;
 
   @override
-  void dispose() {
-    emailController.dispose();
-    nameController.dispose();
-    pass1Controller.dispose();
-    pass2Controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 150,
-        title: const Text('login'),
+        title:const Center(child:  Text('Login'),),
         backgroundColor: Colors.black38,
       ),
       body: Padding(
@@ -65,15 +56,16 @@ class _LoginPageSatte extends State<Login> {
                       emailController.text,
                       style: const TextStyle(),
                     )),
+                Visibility(
+                    visible: isEmail,
+                    child: const Text(
+                      'Insira seu email:',
+                      style: TextStyle(),
+                    )),
                 FieldForm(
                   label: 'e-mail',
                   isVisible: isEmail,
                   controller: emailController,
-                  // onChanged: (value) {
-                  //   // setState(() {
-                  //   emailInput = value;
-                  //   // });
-                  // },
                 ),
                 Visibility(
                     visible: isName,
@@ -103,18 +95,13 @@ class _LoginPageSatte extends State<Login> {
                       final valid = formKey.currentState?.validate() ?? false;
                       if (valid) {
                         setState(() {
+                          
                           isRegistered = emailController.text == email;
-                          print(
-                              'foi?? $emailController.text true?? $isRegistered');
 
-                          if (isRegistered) {
-                            isEmail = !isRegistered;
-                            isPass1 = isRegistered;
-                            isExibirEmail = isRegistered;
-                          } else {
-                            isEmail = isRegistered;
-                            isName = !isRegistered;
-                          }
+                          gerenciamentoDeVizualicacaoForms();
+                          flowRegistro(context);
+
+                          flowAutenticacao(context);
                         });
                       }
                     },
@@ -127,5 +114,58 @@ class _LoginPageSatte extends State<Login> {
         ),
       ),
     );
+  }
+
+  void gerenciamentoDeVizualicacaoForms() {
+      if (isRegistered) {
+      isEmail = !isRegistered;
+      isPass1 = isRegistered;
+      isExibirEmail = isRegistered;
+    } else {
+      isEmail = isRegistered;
+      isName = !isRegistered;
+    }
+  }
+
+  void flowRegistro(BuildContext context) {
+      if (isName && nameController.text.isNotEmpty) {
+      final String senha = pass1Controller.text;
+      final String confirmao = pass2Controller.text;
+      String message = '';
+      if (senha == confirmao) {
+        message = 'Cadastro realizado com sucesso';
+      } else {
+        message = 'Cadastro não realizado';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 4),
+      ));
+      //Chama um novo widget:
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Login()));
+    }
+  }
+
+  void flowAutenticacao(BuildContext context) {
+      if (!isName && pass1Controller.text.isNotEmpty) {
+      String message = '';
+      if (emailController.text == email) {
+        message = 'Autenticação realizada com sucesso';
+      } else {
+        message = 'Não autorizado';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 4),
+      ));
+      //Chama um novo widget:
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Login()));
+    }
   }
 }

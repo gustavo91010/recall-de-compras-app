@@ -4,13 +4,11 @@ class FieldForm extends StatelessWidget {
   final String label;
   final bool isVisible;
   final TextEditingController? controller;
-  // final void Function(String)? onChanged;
 
   const FieldForm({
     super.key,
     required this.label,
     required this.isVisible,
-    // this.onChanged,
     this.controller,
   });
 
@@ -19,20 +17,32 @@ class FieldForm extends StatelessWidget {
     return isVisible
         ? Padding(
             padding: const EdgeInsets.all(10.0),
-            child: TextFormField(
-              controller: controller,
-              decoration: InputDecoration(
-                labelText: label,
-                labelStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
+            child: Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                // tive que por o textform dentro de um sizebox para determinar um comprimento maximo a ele
+                width: 400,
+
+                child: TextFormField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    labelText: label,
+                    labelStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo $label não pode estar vazio';
+                    }
+                    return null;
+                  },
                 ),
               ),
-              // onChanged: onChanged,
-              // Remover a validação de onChanged
             ),
           )
         : const SizedBox.shrink(); // Retorna um widget vazio quando não visível
