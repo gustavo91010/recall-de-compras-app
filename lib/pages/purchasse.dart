@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:recall_de_compras/components/botoon_app_bar.dart';
 import 'package:recall_de_compras/pages/login.dart';
 
 class Purchasse extends StatefulWidget {
@@ -72,6 +73,7 @@ class _PurchasseScreen extends State<Purchasse> {
         ),
         backgroundColor: Colors.black38,
       ),
+      bottomNavigationBar: const BotoonAppBar(),
       body: Container(
         alignment: Alignment.center,
         color: Colors.white38,

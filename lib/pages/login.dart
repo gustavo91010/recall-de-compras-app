@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recall_de_compras/components/botoon_app_bar.dart';
 import 'package:recall_de_compras/components/form_field.dart';
 import 'package:recall_de_compras/pages/purchasse.dart';
 
@@ -22,7 +23,7 @@ class _LoginPageSatte extends State<Login> {
   final pass1Controller = TextEditingController();
   final pass2Controller = TextEditingController();
 
-  String email = 'bob';
+  String email = 'bob@email.com';
   bool isRegistered = false;
   String emailInput = ''; // Armazena o valor do e-mail digitado
 
@@ -43,6 +44,7 @@ class _LoginPageSatte extends State<Login> {
         ),
         backgroundColor: Colors.black38,
       ),
+      bottomNavigationBar: const BotoonAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
