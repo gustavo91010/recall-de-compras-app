@@ -38,7 +38,9 @@ class _LoginPageSatte extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 150,
-        title:const Center(child:  Text('Login'),),
+        title: const Center(
+          child: Text('Login'),
+        ),
         backgroundColor: Colors.black38,
       ),
       body: Padding(
@@ -96,7 +98,6 @@ class _LoginPageSatte extends State<Login> {
                       final valid = formKey.currentState?.validate() ?? false;
                       if (valid) {
                         setState(() {
-                          
                           isRegistered = emailController.text == email;
 
                           gerenciamentoDeVizualicacaoForms();
@@ -118,7 +119,7 @@ class _LoginPageSatte extends State<Login> {
   }
 
   void gerenciamentoDeVizualicacaoForms() {
-      if (isRegistered) {
+    if (isRegistered) {
       isEmail = !isRegistered;
       isPass1 = isRegistered;
       isExibirEmail = isRegistered;
@@ -129,7 +130,7 @@ class _LoginPageSatte extends State<Login> {
   }
 
   void flowRegistro(BuildContext context) {
-      if (isName && nameController.text.isNotEmpty) {
+    if (isName && nameController.text.isNotEmpty) {
       final String senha = pass1Controller.text;
       final String confirmao = pass2Controller.text;
       String message = '';
@@ -144,23 +145,18 @@ class _LoginPageSatte extends State<Login> {
       ));
       //Chama um novo widget:
 
-        if (senha == confirmao) {
-         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Purchasse()));
+      if (senha == confirmao) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const Purchasse()));
       } else {
-         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Login()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Login()));
       }
-    
     }
   }
 
   void flowAutenticacao(BuildContext context) {
-      if (!isName && pass1Controller.text.isNotEmpty) {
+    if (!isName && pass1Controller.text.isNotEmpty) {
       String message = '';
       if (emailController.text == email) {
         message = 'Autenticação realizada com sucesso';
@@ -172,18 +168,13 @@ class _LoginPageSatte extends State<Login> {
         duration: const Duration(seconds: 4),
       ));
 
-
-         if (emailController.text == email) {
-            Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Purchasse()));
+      if (emailController.text == email) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const Purchasse()));
       } else {
-      //Chama um novo widget:
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Login()));
+        //Chama um novo widget:
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Login()));
       }
     }
   }
