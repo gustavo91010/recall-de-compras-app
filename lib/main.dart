@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recall_de_compras/pages/login.dart';
-import 'package:recall_de_compras/pages/purchasse.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +18,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-     // home:  Login()
-           home:  Purchasse()
+     home:  Login()
+         //  home:  Purchasse()
 
     );
   }

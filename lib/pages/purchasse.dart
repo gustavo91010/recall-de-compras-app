@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:recall_de_compras/pages/login.dart';
 
 class Purchasse extends StatefulWidget {
   const Purchasse({super.key});
@@ -11,17 +13,54 @@ class Purchasse extends StatefulWidget {
 class _PurchasseScreen extends State<Purchasse> {
   final List<Widget> compras = [];
 
-  @override
-  void initState() {
-    super.initState();
-    // adiciona um item a lista
-    compras.add(const Compra());
+  Future<void> addCompra() async {
+    String? nomeCompra = await _showNameDialog();
+    if (nomeCompra != null && nomeCompra.isNotEmpty) {
+      setState(() {
+        compras.add(Compra(nome: nomeCompra));
+        print('Compra adicionada: Total de compras = ${compras.length}');
+
+        sendMessage(message: 'Compra: $nomeCompra adicionada');
+      });
+    }
   }
 
-  void addCompra() {
-    setState(() {
-      compras.add(const Compra());
-    });
+  void sendMessage({required String message}) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<String?> _showNameDialog() {
+    // box para pegar o nome da compra
+    TextEditingController nameController = TextEditingController();
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Digite o nome da compra'),
+          content: TextField(
+            controller: nameController,
+            decoration: const InputDecoration(hintText: "Nome da compra"),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Fecha o diálogo sem retornar valor
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(nameController.text); // Retorna o valor digitado
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -36,11 +75,11 @@ class _PurchasseScreen extends State<Purchasse> {
       body: Container(
         alignment: Alignment.center,
         color: Colors.white38,
-        child:  Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             NovaCompra(onPressed: addCompra),
-           // const NovaCompra(),
+            NovaCompra(onPressed: addCompra),
+            // const NovaCompra(),
             Expanded(
               child: ListView(
                 children: compras,
@@ -54,18 +93,40 @@ class _PurchasseScreen extends State<Purchasse> {
 }
 
 class Compra extends StatelessWidget {
-  const Compra({
-    super.key,
-  });
+  final String nome;
+  const Compra({super.key, required this.nome});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 100,
-        height: 100,
-        color: Colors.blueGrey,
+      child: Align(
+        alignment: Alignment.center, // Centraliza horizontalmente
+        child: Container(
+          width: 100, // Define a largura desejada
+          height: 100,
+          color: Colors.blueGrey,
+          child: Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('Entrando na compra $nome'),
+                      duration: const Duration(seconds: 1),
+                    ));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Login()));
+                  },
+                  child: const Icon(Icons.input)),
+              Text(
+                nome,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          )),
+        ),
       ),
     );
   }
@@ -88,12 +149,7 @@ class NovaCompra extends StatelessWidget {
         color: Colors.blueGrey,
         child: Center(
           child: ElevatedButton(
-              onPressed: onPressed,
-               //{
-                //ScaffoldMessenger.of(context).showSnackBar(
-                  //  const SnackBar(content: Text('Nova compra adicionada')));
-//              },
-              child: const Icon(Icons.add)),
+              onPressed: onPressed, child: const Icon(Icons.add)),
         ),
       ),
     );

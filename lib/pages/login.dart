@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recall_de_compras/components/form_field.dart';
+import 'package:recall_de_compras/pages/purchasse.dart';
 
 class Login extends StatefulWidget {
   Login({super.key});
@@ -142,10 +143,19 @@ class _LoginPageSatte extends State<Login> {
         duration: const Duration(seconds: 4),
       ));
       //Chama um novo widget:
-      Navigator.pushReplacement(
+
+        if (senha == confirmao) {
+         Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const Purchasse()));
+      } else {
+         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Login()));
+      }
+    
     }
   }
 
@@ -161,11 +171,20 @@ class _LoginPageSatte extends State<Login> {
         content: Text(message),
         duration: const Duration(seconds: 4),
       ));
+
+
+         if (emailController.text == email) {
+            Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const Purchasse()));
+      } else {
       //Chama um novo widget:
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) => Login()));
+      }
     }
   }
 }
