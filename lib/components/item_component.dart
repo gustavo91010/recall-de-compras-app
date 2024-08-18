@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class Item extends StatelessWidget {
@@ -24,52 +23,67 @@ class Item extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-          width: 500,
-          height: 50,
-          decoration: BoxDecoration(
-            color: Colors.brown,
-            borderRadius: BorderRadius.circular(6.0),
-            border: Border.all(
-              color: Colors.black,
-              width: 2.0,
-            ),
+        width: 500,
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.brown[100],
+          borderRadius: BorderRadius.circular(6.0),
+          border: Border.all(
+            color: Colors.brown[300]!,
+            width: 2.0,
           ),
-          child: Column(
+        ),
+        child: ExpansionTile(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    child: Text(descricao),
-                  ),
-                  SizedBox(
-                    child: Text(quantidade.toString()),
-                  ),
-                  SizedBox(
-                    child: Text(preco.toString()),
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    child: Text(marca),
-                  ),
-                  SizedBox(
-                    child: Text(medida.toString()),
-                  ),
-                  SizedBox(
-                    child: Text(unidade),
-                  )
-                ],
-              )
+              Expanded(child: _buildElement('Desc:', descricao)),
+              // Expanded(child: _buildElement('Qnd:', quantidade.toString())),
+              Expanded(child: _buildElement('Preço:', preco.toString())),
             ],
-          )
-          //const Text('Esse vai ser o componente do item'),
           ),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(child: _buildElement('Marca:', marca)),
+                // Expanded(child: _buildElement('Medida:', medida.toString())),
+                Expanded(child: _buildElement('Unidade:', '$medida $unidade')),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildElement(String label, String value) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4.0),
+        border: Border.all(
+          color: Colors.brown[200]!,
+          width: 1.0,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          Text(
+            value,
+            overflow: TextOverflow
+                .ellipsis, // Adiciona reticências se o texto for muito longo
+            maxLines: 1,
+          ) // Garante que o texto ocupe apenas uma linha),
+        ],
+      ),
     );
   }
 }
