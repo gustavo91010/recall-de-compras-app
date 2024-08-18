@@ -118,11 +118,11 @@ class Item extends StatelessWidget {
 
   Future<String?> _showEditItens(BuildContext context) {
 // box para pegar o os dados dos itens no update
- TextEditingController descriptionController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController brandController = TextEditingController();
-  TextEditingController unitController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
+    TextEditingController descriptionController = TextEditingController();
+    TextEditingController priceController = TextEditingController();
+    TextEditingController brandController = TextEditingController();
+    TextEditingController unitController = TextEditingController();
+    TextEditingController quantityController = TextEditingController();
     TextEditingController nameController = TextEditingController();
 
     return showDialog<String>(
@@ -130,37 +130,33 @@ class Item extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Digite os novos valores'),
-
-          
           content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: descriptionController,
-                decoration: const InputDecoration(hintText: "Descrição"),
-              ),
-              TextField(
-                controller: priceController,
-                decoration: const InputDecoration(hintText: "Preço"),
-              ),
-              TextField(
-                controller: brandController,
-                decoration: const InputDecoration(hintText: "Marca"),
-              ),
-              TextField(
-                controller: unitController,
-                decoration: const InputDecoration(hintText: "Unidade"),
-              ),
-              TextField(
-                controller: quantityController,
-                decoration: const InputDecoration(hintText: "Quantidade"),
-              ),
-            ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(hintText: "Descrição"),
+                ),
+                TextField(
+                  controller: priceController,
+                  decoration: const InputDecoration(hintText: "Preço"),
+                ),
+                TextField(
+                  controller: brandController,
+                  decoration: const InputDecoration(hintText: "Marca"),
+                ),
+                TextField(
+                  controller: unitController,
+                  decoration: const InputDecoration(hintText: "Unidade"),
+                ),
+                TextField(
+                  controller: quantityController,
+                  decoration: const InputDecoration(hintText: "Quantidade"),
+                ),
+              ],
+            ),
           ),
-        ),
-
-          
           actions: <Widget>[
             TextButton(
               onPressed: () {

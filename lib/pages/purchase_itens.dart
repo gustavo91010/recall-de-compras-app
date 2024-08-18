@@ -10,6 +10,17 @@ class PurchaseItens extends StatefulWidget {
 }
 
 class _PurchaseItensScreen extends State<PurchaseItens> {
+  final List<Item> itens = [];
+
+  Future<void> addItem() async {
+    final result = await _insertItem(context);
+    if (result != null) {
+      setState(() {
+        itens.add(result);
+      });
+    }
+  }
+
   final String descricao = 'Macarrão';
   final String marca = 'Vitarela';
   final double preco = 4.79;
@@ -30,38 +41,13 @@ class _PurchaseItensScreen extends State<PurchaseItens> {
       body: Column(
         children: [
           totalCompra(),
+          ElevatedButton(
+            onPressed: addItem, // Chama o método para adicionar um novo item
+            child: const Text('Adicionar Novo Item'),
+          ),
           Expanded(
             child: ListView(
-              children: [
-                Item(
-                    descricao: descricao,
-                    preco: preco,
-                    marca: marca,
-                    quantidade: qnd,
-                    medida: medida,
-                    unidade: unidade),
-                const Item(
-                    descricao: 'Coca Cola',
-                    preco: 7.25,
-                    marca: 'Coca Cola',
-                    medida: 2,
-                    quantidade: 5,
-                    unidade: 'l'),
-                const Item(
-                    descricao: 'Linha de costura',
-                    preco: 1.20,
-                    marca: 'linha forte',
-                    quantidade: 2,
-                    medida: 100,
-                    unidade: 'm'),
-                const Item(
-                    descricao: 'Leite em pó',
-                    preco: 6.25,
-                    marca: 'camponesa',
-                    medida: 200,
-                    quantidade: 10,
-                    unidade: 'g')
-              ],
+              children: itens,
             ),
           ),
         ],
@@ -89,6 +75,75 @@ class _PurchaseItensScreen extends State<PurchaseItens> {
           child: const Text('total da compra'),
         ),
       ),
+    );
+  }
+
+  Future<Item?> _insertItem(BuildContext context) {
+    TextEditingController descriptionController = TextEditingController();
+    TextEditingController priceController = TextEditingController();
+    TextEditingController brandController = TextEditingController();
+    TextEditingController unitController = TextEditingController();
+    TextEditingController quantityController = TextEditingController();
+
+    return showDialog<Item>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Digite os novos valores'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: descriptionController,
+                  decoration: const InputDecoration(hintText: "Descrição"),
+                ),
+                TextField(
+                  controller: priceController,
+                  decoration: const InputDecoration(hintText: "Preço"),
+                  keyboardType: TextInputType.number,
+                ),
+                TextField(
+                  controller: brandController,
+                  decoration: const InputDecoration(hintText: "Marca"),
+                ),
+                TextField(
+                  controller: unitController,
+                  decoration: const InputDecoration(hintText: "Unidade"),
+                ),
+                TextField(
+                  controller: quantityController,
+                  decoration: const InputDecoration(hintText: "Quantidade"),
+                  keyboardType: TextInputType.number,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Fecha o diálogo sem retornar valor
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                final newItem = Item(
+                  descricao: descriptionController.text,
+                  preco: double.tryParse(priceController.text) ?? 0.0,
+                  marca: brandController.text,
+                  quantidade: double.tryParse(quantityController.text) ?? 0.0,
+                  medida: double.tryParse(quantityController.text) ?? 0.0,
+                  unidade: unitController.text,
+                );
+                Navigator.of(context).pop(newItem); // Retorna o novo item
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

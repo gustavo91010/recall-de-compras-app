@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recall_de_compras/components/botoon_app_bar.dart';
 import 'package:recall_de_compras/pages/login.dart';
+import 'package:recall_de_compras/pages/purchase_itens.dart';
 
 class Purchasse extends StatefulWidget {
   const Purchasse({super.key});
@@ -114,8 +115,9 @@ class Compra extends StatelessWidget {
                       content: Text('Entrando na compra $nome'),
                       duration: const Duration(seconds: 1),
                     ));
+                    
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Login()));
+                        MaterialPageRoute(builder: (context) => const PurchaseItens()));
                   },
                   child: const Icon(Icons.input)),
               Text(
