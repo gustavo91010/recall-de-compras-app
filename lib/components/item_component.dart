@@ -35,16 +35,15 @@ class Item extends StatelessWidget {
         ),
         child: ExpansionTile(
           trailing: const SizedBox(
-            width: 10,
-            height: 10,
-            child: Align(
-              alignment:  Alignment.centerLeft,
-              child: Icon(
-        Icons.expand_more, // Ícone padrão de expandir
-        size: 16,
-      ),
-            )
-          ),
+              width: 10,
+              height: 10,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Icon(
+                  Icons.expand_more, // Ícone padrão de expandir
+                  size: 16,
+                ),
+              )),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -67,10 +66,13 @@ class Item extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero, // Remove o padding padrão
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+// aqui vai ficar o metodo para abrir caixa de edição de campo
+                        _showEditItens(context);
+                      },
                       child: Container(
                         alignment: AlignmentDirectional.center,
-                        child: Icon(
+                        child: const Icon(
                           Icons.edit,
                           size: 12,
                         ),
@@ -111,6 +113,72 @@ class Item extends StatelessWidget {
           ) // Garante que o texto ocupe apenas uma linha),
         ],
       ),
+    );
+  }
+
+  Future<String?> _showEditItens(BuildContext context) {
+// box para pegar o os dados dos itens no update
+ TextEditingController descriptionController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController brandController = TextEditingController();
+  TextEditingController unitController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
+    TextEditingController nameController = TextEditingController();
+
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Digite os novos valores'),
+
+          
+          content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: descriptionController,
+                decoration: const InputDecoration(hintText: "Descrição"),
+              ),
+              TextField(
+                controller: priceController,
+                decoration: const InputDecoration(hintText: "Preço"),
+              ),
+              TextField(
+                controller: brandController,
+                decoration: const InputDecoration(hintText: "Marca"),
+              ),
+              TextField(
+                controller: unitController,
+                decoration: const InputDecoration(hintText: "Unidade"),
+              ),
+              TextField(
+                controller: quantityController,
+                decoration: const InputDecoration(hintText: "Quantidade"),
+              ),
+            ],
+          ),
+        ),
+
+          
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(); // Fecha o diálogo sem retornar valor
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(nameController.text); // Retorna o valor digitado
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

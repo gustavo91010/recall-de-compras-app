@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:recall_de_compras/components/botoon_app_bar.dart';
 import 'package:recall_de_compras/pages/login.dart';
 
@@ -19,8 +17,6 @@ class _PurchasseScreen extends State<Purchasse> {
     if (nomeCompra != null && nomeCompra.isNotEmpty) {
       setState(() {
         compras.add(Compra(nome: nomeCompra));
-        print('Compra adicionada: Total de compras = ${compras.length}');
-
         sendMessage(message: 'Compra: $nomeCompra adicionada');
       });
     }
