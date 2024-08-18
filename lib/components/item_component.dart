@@ -34,11 +34,21 @@ class Item extends StatelessWidget {
           ),
         ),
         child: ExpansionTile(
+          trailing: const SizedBox(
+            width: 10,
+            height: 10,
+            child: Align(
+              alignment:  Alignment.centerLeft,
+              child: Icon(
+        Icons.expand_more, // Ícone padrão de expandir
+        size: 16,
+      ),
+            )
+          ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(child: _buildElement('Desc:', descricao)),
-              // Expanded(child: _buildElement('Qnd:', quantidade.toString())),
               Expanded(child: _buildElement('Preço:', preco.toString())),
             ],
           ),
@@ -46,9 +56,26 @@ class Item extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: _buildElement('Marca:', marca)),
+                Expanded(child: _buildElement('Massrca:', marca)),
                 // Expanded(child: _buildElement('Medida:', medida.toString())),
                 Expanded(child: _buildElement('Unidade:', '$medida $unidade')),
+                Expanded(child: _buildElement('Qnd:', quantidade.toString())),
+                SizedBox(
+                  width: 20,
+                  height: 40,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero, // Remove o padding padrão
+                      ),
+                      onPressed: () {},
+                      child: Container(
+                        alignment: AlignmentDirectional.center,
+                        child: Icon(
+                          Icons.edit,
+                          size: 12,
+                        ),
+                      )),
+                ),
               ],
             ),
           ],
