@@ -9,6 +9,7 @@ class Item extends StatelessWidget {
     required this.marca,
     required this.quantidade,
     required this.unidade,
+    required this.medida,
   });
 
   final String descricao;
@@ -16,6 +17,7 @@ class Item extends StatelessWidget {
   final String marca;
   final double quantidade;
   final String unidade;
+  final double medida;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,9 @@ class Item extends StatelessWidget {
                     child: Text(descricao),
                   ),
                   SizedBox(
+                    child: Text(quantidade.toString()),
+                  ),
+                  SizedBox(
                     child: Text(preco.toString()),
                   )
                 ],
@@ -54,7 +59,7 @@ class Item extends StatelessWidget {
                     child: Text(marca),
                   ),
                   SizedBox(
-                    child: Text(quantidade.toString()),
+                    child: Text(medida.toString()),
                   ),
                   SizedBox(
                     child: Text(unidade),

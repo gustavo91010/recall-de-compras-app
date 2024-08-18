@@ -14,7 +14,8 @@ class _PurchaseItensScreen extends State<PurchaseItens> {
   final String marca = 'Vitarela';
   final double preco = 4.79;
   final String unidade = 'g';
-  final double quantidade = 500;
+  final double medida = 500;
+  final double qnd = 23;
 
   @override
   Widget build(BuildContext context) {
@@ -36,25 +37,29 @@ class _PurchaseItensScreen extends State<PurchaseItens> {
                     descricao: descricao,
                     preco: preco,
                     marca: marca,
-                    quantidade: quantidade,
+                    quantidade: qnd,
+                    medida: medida,
                     unidade: unidade),
                 const Item(
                     descricao: 'Coca Cola',
                     preco: 7.25,
                     marca: 'Coca Cola',
-                    quantidade: 2,
+                    medida: 2,
+                    quantidade: 5,
                     unidade: 'l'),
                 const Item(
                     descricao: 'Linha de costura',
                     preco: 1.20,
                     marca: 'linha forte',
-                    quantidade: 100,
+                    quantidade: 2,
+                    medida: 100,
                     unidade: 'm'),
                 const Item(
                     descricao: 'Leite em pó',
                     preco: 6.25,
                     marca: 'camponesa',
-                    quantidade: 200,
+                    medida: 200,
+                    quantidade: 10,
                     unidade: 'g')
               ],
             ),
@@ -87,4 +92,3 @@ class _PurchaseItensScreen extends State<PurchaseItens> {
     );
   }
 }
-
